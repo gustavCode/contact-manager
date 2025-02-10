@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Contact Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div class="container col-md-8 rounded border my-4">
+    <h1 class="text-center">Contact Details</h1>
+    <hr>
+    <form enctype="multipart/form-data" method="post" th:object="${contactDto}">
+        <div class="row">
+            <div class="offset-sm-4 col-sm-4">
+                <img th:src="@{'/uploads/images/' + ${contact.imageFileName}}" alt="Contact's Image"
+                     style="width: 150px; height: 150px" class="rounded-circle mx-auto">
+
+                <input type="file" class="form-control" id="imageFile" name="imageFile" th:field="${contactDto.imageFile}">
+                <p th:if="${#fields.hasErrors('imageFile')}" th:errorclass="text-danger"
+                   th:errors="${contactDto.imageFile}"></p>
+            </div>
+        </div>
+
+        <div class="row gx-5 gy-4 justify-content-center p-4">
+            <div class="col-6">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" th:field="${contactDto.name}">
+                <p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger" th:errors="${contactDto.name}"></p>
+            </div>
+
+            <div class="col-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" th:field="${contactDto.email}">
+                <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger"
+                   th:errors="${contactDto.email}"></p>
+            </div>
+
+            <div class="col-6">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="phone" name="phone" th:field="${contactDto.phone}">
+                <p th:if="${#fields.hasErrors('phone')}" th:errorclass="text-danger"
+                   th:errors="${contactDto.phone}"></p>
+            </div>
+
+            <div class="col-6">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" name="address" th:field="${contactDto.address}">
+                <p th:if="${#fields.hasErrors('address')}" th:errorclass="text-danger"
+                   th:errors="${contactDto.address}"></p>
+            </div>
+
+            <div class="col-6">
+                <label for="birthday" class="form-label">Birthday</label>
+                <input type="date" class="form-control" id="birthday" name="birthday"
+                       th:field="${contactDto.birthday}">
+                <p th:if="${#fields.hasErrors('birthday')}" th:errorclass="text-danger"
+                   th:errors="${contactDto.birthday}"></p>
+            </div>
+
+            <div class="col-6">
+                <label for="occupation" class="form-label">Occupation</label>
+                <input type="text" class="form-control" id="occupation" name="occupation"
+                       th:field="${contactDto.occupation}">
+                <p th:if="${#fields.hasErrors('occupation')}" th:errorclass="text-danger"
+                   th:errors="${contactDto.occupation}"></p>
+            </div>
+
+            <div class="col-6">
+                <label for="tags" class="form-label">Groups</label>
+                <select class="form-select" id="tags" name="tags" th:field="${contactDto.tags}">
+                    <option value="Family">Family</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Co-worker">Co-worker</option>
+                </select>
+                <p th:if="${#fields.hasErrors('tags')}" th:errorclass="text-danger" th:errors="${contactDto.tags}"></p>
+            </div>
+
+            <div class="col-6">
+                <label for="notes" class="form-label">Notes</label>
+                <textarea class="form-control" id="notes" name="notes" th:field="${contactDto.notes}"></textarea>
+                <p th:if="${#fields.hasErrors('notes')}" th:errorclass="text-danger"
+                   th:errors="${contactDto.notes}"></p>
+            </div>
+
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary col-sm-3">Save</button>
+                <a type="submit" class="btn btn-secondary" href="/contacts" role="button">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

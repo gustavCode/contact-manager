@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts Manager</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-3 mt-2 ms-5">
+            <a href="/contacts/add" class="btn btn-primary">Add Contact</a>
+        </div>
+        <div class="col-5">
+            <h2 class="text-center">Contact Management</h2>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Contacts card -->
+    <div class="row text-center">
+        <div class="col-sm-3 mb-3" th:each="contact : ${contacts}">
+            <div class="card" style="cursor: pointer;" data-bs-toggle="modal"
+                 th:attr="data-bs-target='#contactModal' + ${contact.id}">
+                <img th:src="@{'/uploads/images/' + ${contact.imageFileName}}" alt="Contact Picture"
+                     style="width: 100px; height: 100px"
+                     class="card-img-top img-thumbnail rounded-circle mx-auto d-block mt-1">
+
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${contact.name}"></h5>
+                    <p class="card-text"><span th:text="${contact.email}"></span></p>
+                    <div class="d-flex justify-content-center">
+                        <a th:href="@{/contacts/edit/{id}(id=${contact.id})}" class="btn btn-warning me-3 px-4">Edit</a>
+                        <a th:href="@{/contacts/delete/{id}(id=${contact.id})}" class="btn btn-danger"
+                           onclick="return confirm('Are you sure?')">Delete</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" th:id="'contactModal' + ${contact.id}" tabindex="-1"
+                 aria-labelledby="contactModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" th:text="${contact.name}"></h5>
+                            <img th:src="@{'/uploads/images/' + ${contact.imageFileName}}" alt="Contact's Image"
+                                 style="width: 60px; height: 60px" class="rounded-circle mx-auto">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row gx-5 gy-4 justify-content-center p-3">
+                                <div class="col-6">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           th:value="${contact.name}" readonly>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                           th:value="${contact.email}" readonly>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="text" class="form-control" id="phone" name="phone"
+                                           th:value="${contact.phone}" readonly>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address"
+                                           th:value="${contact.address}"
+                                           readonly>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="birthday" class="form-label">Birthday</label>
+                                    <input type="date" class="form-control" id="birthday" name="birthday"
+                                           th:value="${contact.birthday}"
+                                           readonly>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="occupation" class="form-label">Occupation</label>
+                                    <input type="text" class="form-control" id="occupation" name="occupation"
+                                           th:value="${contact.occupation}"
+                                           readonly>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="tags" class="form-label">Groups</label>
+                                    <input type="text" class="form-control" id="tags" name="tags"
+                                           th:value="${contact.tags}" readonly>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="notes" class="form-label">Notes</label>
+                                    <textarea class="form-control" id="notes" name="notes" th:text="${contact.notes}"
+                                              readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <!-- Pagination Links -->
+    <nav aria-label="Contacts Pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/contacts(page=${currentPage - 1}, size=${size}, keyword=${keyword})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link"
+                   th:href="@{/contacts(page=${i}, size=${size}, keyword=${keyword})}"
+                   th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/contacts(page=${currentPage + 1}, size=${size}, keyword=${keyword})}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+</body>
+</html>

@@ -31,6 +31,7 @@ public class Contact {
     private String notes;
     private LocalDate createdAt;
     private LocalDate updatedAt;
+    private String imageFileName;
 }
 
 
