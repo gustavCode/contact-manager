@@ -30,7 +30,6 @@ public class ContactController2 {
                                  @RequestParam(value = "page", defaultValue = "0") int page,
                                  @RequestParam(value = "size", defaultValue = "8") int size,
                                  @RequestParam(value = "keyword", required = false) String keyword) {
-//        List<Contact> allContacts = contactService.getAllContacts();
         Page<Contact> contactPage = contactService.searchContacts(keyword, page, size);
         model.addAttribute("contacts", contactPage.getContent());
         model.addAttribute("currentPage", page);

@@ -26,7 +26,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,10 +35,6 @@ public class ContactService2 {
     @Value("${file.upload-dir}")
     private String uploadDir;
     private final ContactRepository contactRepository;
-
-    public List<Contact> getAllContacts() {
-        return contactRepository.findAll();
-    }
 
     public Contact getContactById(Long id) {
         return contactRepository.findById(id)
