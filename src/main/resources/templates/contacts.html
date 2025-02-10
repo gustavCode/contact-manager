@@ -15,8 +15,17 @@
             <a href="/contacts/add" class="btn btn-primary">Add Contact</a>
         </div>
         <div class="col-5">
-            <h2 class="text-center">Contact Management</h2>
+            <h2 class="text-center">Contact Manager</h2>
         </div>
+
+        <!-- Search Form -->
+        <form class="col-3 mt-2" th:action="@{/contacts}" method="get">
+            <div class="input-group">
+                <input type="text" name="keyword" class="form-control" placeholder="Search contacts..."
+                       th:value="${keyword}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
     </div>
 
     <hr>
